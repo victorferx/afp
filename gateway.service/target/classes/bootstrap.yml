@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8099/eureka/
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: afp-withdrawal
+          uri: lb://afp-withdrawal
+          predicates:
+            - Path=/api/customers/**, /api/afpCustomers/**
